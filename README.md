@@ -52,3 +52,6 @@ How I implemented the checklist for the assignment
     - run commands listed in PWS Project Command
     - git push pws master
     - view the site in PWS deployment URL
+
+Django Diagram
+<img width="1320" height="840" alt="Flowchart" src="https://github.com/user-attachments/assets/f10a73c2-0511-4397-8940-72ccd17d0ae0" />
