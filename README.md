@@ -55,3 +55,23 @@ How I implemented the checklist for the assignment
 
 Django Diagram
 <img width="1320" height="840" alt="Flowchart" src="https://github.com/user-attachments/assets/f10a73c2-0511-4397-8940-72ccd17d0ae0" />
+
+How migration works in Django
+In Django, database migration is the process of keeping your database schema in sync with your models. It allows you to evolve the database structure without losing data. 
+1. Models define the schema or how your database tables should look like.
+2. makemigrationa
+    Django compares current models.py with the last migration state. 
+    It then generate migration files which describe changes to apply.
+3. migrate
+    Django looks at unapplied migration files and executes the SQL statements needed to alter the database schema.
+    It also updates a special table called django_migrations, which records which migrations have been applied.
+
+Opinion on why Django is chosen as starting point on learning software development
+- It already comes prepackaged with a lot of common features you need for web development (database handling, URL routing, etc.), so we don't have to set up a lot manually.
+- Django uses clear structure (Model-View-Template) that makes it easier to understand how web apps work. Easily transferable knowledge to many other frameworks (Rails, Laravel, Sprint, etc.) which follows similar MVC-like patterns. (Model-View-Controller)
+- Thorough and easy to understand documentation and a large, global community which means there is a lot of tutorials and public projects to learn from.
+- Teaches good programming practices. Built-in protection against attacks (SQL injection, XSS, CRSF, etc.), encourages DRY (Don't Repeat Yourself), and introduces migrations, testing, modular apps, deployment, which are widely-used concepts in software development.
+
+Feedback for the TA for tutorial 1
+- Easy to approach and responsive to questions.
+- List different commands for Windows ("python ...") and Unix-like ("python3 ..."). Some people may not realize these differences and might be confused on why running only "python ..." doesn't work on their system.
