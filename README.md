@@ -1,4 +1,6 @@
-# pbp-assignment-2
+# gooner-store
+
+**PBP ASSIGNMENT 2**
 
 **How I implemented the checklist for the assignment**
 1. Initiate local directory and GitHub repository named pbp-assignment-2
