@@ -127,3 +127,56 @@ If we don’t use it, attackers can exploit this by making hidden forms or scrip
 <img width="1470" height="956" alt="Screenshot 2025-09-17 at 11 40 18" src="https://github.com/user-attachments/assets/a7cd1383-1e27-42ad-9465-418cdfbff63e" />
 
 <img width="1470" height="956" alt="Screenshot 2025-09-17 at 11 40 24" src="https://github.com/user-attachments/assets/8955b615-4acf-4b40-a216-e29669dd83ae" />
+
+
+**PBP ASSIGNMENT 4**
+
+**What is Django's AuthenticationForm? Explain its advantages and disadvantages.**
+
+It’s a built-in form for login with username and password.
+- Advantages: ready-made, already validates credentials, integrates with Django’s authentication system, safe for basic login.
+- Disadvantages: only works with username+password by default, no extra features (2FA, captcha), needs customization for modern use cases.
+
+**What is the difference between authentication and authorization? How does Django implement the two concepts?**
+
+Authentication = verifying identity (who you are). Example: logging in with username & password.
+Authorization = checking permissions (what you can do). Example: only admins can delete posts.
+In Django:
+- Authentication handled by authenticate(), login(), AuthenticationMiddleware.
+- Authorization handled by permissions, groups, decorators like @login_required, @permission_required.
+
+
+**What are the benefits and drawbacks of using sessions and cookies in storing the state of a web application?**
+
+Cookies: stored in the browser, small size (~4KB), simple but can be tampered with, sent with every request.
+Sessions: stored on the server, cookie only keeps the session ID. More secure, can hold larger data, but requires server storage and management.
+Django default: server-side sessions for security, with cookies just storing the session key.
+
+**In web development, is the usage of cookies secure by default, or is there any potential risk that we should be aware of? How does Django handle this problem?**
+
+Not fully. Risks include:
+- XSS: attacker steals cookies through injected JavaScript.
+- CSRF: cookies auto-send across sites, attacker can exploit this.
+- Sniffing: cookies stolen if not encrypted via HTTPS.
+- Tampering: if cookies store raw data.
+
+Django’s protections:
+- HttpOnly (not readable by JavaScript).
+- Secure (only sent over HTTPS).
+- SameSite (reduces CSRF).
+- CSRF middleware with {% csrf_token %}.
+- Session data stored on the server, not in cookies.
+
+**Explain how you implemented the checklist above step-by-step (not just following the tutorial).**
+1. Create a new Django project and an accounts app to keep authentication code organized.
+2. Add your accounts app to INSTALLED_APPS and keep Django’s auth and sessions apps enabled so you have User and session support.
+3. Ensure SecurityMiddleware, SessionMiddleware, CsrfViewMiddleware, and AuthenticationMiddleware are present in MIDDLEWARE so sessions, CSRF protection, and request.user work.
+4. Make a login template that posts via POST, renders the form fields, and includes {% csrf_token %} to protect from CSRF.
+5. Use Django’s AuthenticationForm or LoginView to validate credentials with authenticate() and avoid reimplementing basic checks.
+6. In your login view call login(request, user) after validation to create the server-side session and rotate the session key.
+7. Add an optional “remember me” checkbox and call request.session.set_expiry(0) for non-remembered sessions or set_expiry(seconds) for custom expiry.
+8. Secure cookies in settings.py by setting SESSION_COOKIE_SECURE=True, SESSION_COOKIE_HTTPONLY=True, and SESSION_COOKIE_SAMESITE='Lax' (and CSRF_COOKIE_SECURE=True).
+9. Protect pages with @login_required and use @permission_required or user.has_perm() for fine-grained authorization checks.
+10. Add brute-force protections (rate limiting or packages like django-axes) to prevent repeated login attempts.
+11. Write tests for login success/failure, protected-view redirects, and session expiry to catch regressions early.
+12. Deploy with DEBUG=False, ALLOWED_HOSTS configured, HTTPS enabled, and a secure SECRET_KEY to ensure production safety.
