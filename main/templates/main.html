@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 {% load humanize %}
 
 <h1>{{ app_name }}</h1>
@@ -11,8 +13,19 @@
 <a href="{% url 'main:add_product' %}">
   <button>+ Add Product</button>
 </a>
+<a href="{% url 'main:logout' %}">
+  <button>Logout</button>
+</a>
+<h5>Sesi terakhir login: {{ last_login }}</h5>
 
 <hr>
+
+<a href="?filter=all">
+    <button type="button">All Products</button>
+</a>
+<a href="?filter=my">
+    <button type="button">My Product</button>
+</a> 
 
 {% if not product_list %}
 <p>No product data available in {{ app_name }}.</p>
@@ -47,3 +60,5 @@
 {% endfor %}
 
 {% endif %}
+
+{% endblock content %}

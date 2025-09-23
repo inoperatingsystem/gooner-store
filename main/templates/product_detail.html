@@ -25,5 +25,10 @@
     {% if product.is_best_selling %} | <b>Best Selling</b> |{% endif %}
 </p>
 
+{% if product.user %}
+    <p>Seller: {{ product.user.username }}</p>
+{% else %}
+    <p>Seller: Anonymous</p>
+{% endif %}
 
 {% endblock content %}
