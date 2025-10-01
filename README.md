@@ -180,3 +180,41 @@ Django’s protections:
 10. Add brute-force protections (rate limiting or packages like django-axes) to prevent repeated login attempts.
 11. Write tests for login success/failure, protected-view redirects, and session expiry to catch regressions early.
 12. Deploy with DEBUG=False, ALLOWED_HOSTS configured, HTTPS enabled, and a secure SECRET_KEY to ensure production safety.
+
+**PBP ASSIGNMENT 5**
+
+**Urutan Prioritas CSS Selector**
+CSS memilih aturan berdasarkan urutan prioritas (specificity):
+- !important selalu menang, meskipun biasanya dihindari.
+- Inline style (atribut style langsung di elemen) memiliki prioritas tinggi.
+- ID selector lebih kuat dibanding class.
+- Class, attribute, pseudo-class lebih kuat dibanding elemen biasa.
+- Element dan pseudo-element paling rendah prioritasnya.
+- Universal selector dan default browser berada di urutan terakhir.
+
+Jika ada aturan dengan prioritas yang sama, aturan yang ditulis paling akhir akan dipakai.
+
+**Pentingnya Responsive Design**
+Responsive design penting karena pengguna mengakses web dari berbagai perangkat dengan ukuran layar berbeda. Dengan desain responsif, tampilan dapat menyesuaikan sehingga lebih mudah digunakan dan nyaman di semua perangkat. Hal ini meningkatkan pengalaman pengguna, membantu optimasi SEO, serta mempermudah pengelolaan karena hanya satu basis kode yang dipelihara.
+Contoh aplikasi yang sudah menerapkan responsive design adalah GitHub dan Tokopedia, di mana tampilan otomatis menyesuaikan saat layar diperkecil. Sebaliknya, banyak sistem akademik atau aplikasi internal lama masih menggunakan layout fixed-width, sehingga tidak nyaman diakses melalui ponsel.
+
+**Perbedaan Margin, Border, dan Padding**
+- Content adalah isi dari elemen seperti teks atau gambar.
+- Padding adalah ruang antara content dan border.
+- Border adalah garis yang mengelilingi padding.
+- Margin adalah ruang di luar border yang memisahkan elemen dengan elemen lain.
+
+Secara sederhana: content berada di tengah, kemudian dikelilingi padding, lalu border, dan di luar semuanya ada margin.
+
+**Flexbox dan Grid Layout**
+- Flexbox digunakan untuk mengatur tata letak satu dimensi, baik secara baris maupun kolom. Flexbox sangat berguna untuk menyusun elemen yang berderet seperti navbar, card, atau tombol.
+- Grid digunakan untuk tata letak dua dimensi yang melibatkan baris dan kolom sekaligus. Grid cocok untuk membuat struktur halaman utama, galeri gambar, atau layout kompleks dengan pembagian ruang yang jelas.
+
+**Step-by-Step Implementasi**	
+1. Menyusun struktur HTML dasar sesuai kebutuhan konten.
+2. Menambahkan gaya dasar CSS seperti warna, ukuran teks, dan jarak.
+3. Menerapkan box model dengan margin, border, dan padding agar elemen memiliki ruang yang rapi.
+4. Mengatur layout menggunakan Flexbox atau Grid sesuai kebutuhan (misalnya Flexbox untuk navbar, Grid untuk layout halaman).
+5. Menambahkan media query agar tampilan menyesuaikan di layar kecil maupun besar.
+6. Menguji tampilan pada berbagai ukuran layar untuk memastikan desain responsif.
+7. Merefaktor kode agar lebih konsisten dan mudah dipelihara.
