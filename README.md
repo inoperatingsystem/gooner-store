@@ -195,6 +195,7 @@ CSS memilih aturan berdasarkan urutan prioritas (specificity):
 Jika ada aturan dengan prioritas yang sama, aturan yang ditulis paling akhir akan dipakai.
 
 **Pentingnya Responsive Design**
+
 Responsive design penting karena pengguna mengakses web dari berbagai perangkat dengan ukuran layar berbeda. Dengan desain responsif, tampilan dapat menyesuaikan sehingga lebih mudah digunakan dan nyaman di semua perangkat. Hal ini meningkatkan pengalaman pengguna, membantu optimasi SEO, serta mempermudah pengelolaan karena hanya satu basis kode yang dipelihara.
 Contoh aplikasi yang sudah menerapkan responsive design adalah GitHub dan Tokopedia, di mana tampilan otomatis menyesuaikan saat layar diperkecil. Sebaliknya, banyak sistem akademik atau aplikasi internal lama masih menggunakan layout fixed-width, sehingga tidak nyaman diakses melalui ponsel.
 
