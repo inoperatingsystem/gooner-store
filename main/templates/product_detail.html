@@ -41,13 +41,8 @@
                 <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">
                     {{ product.name }}
                 </h1>
-
-                
                 
                 <div class="flex flex-wrap items-center text-sm text-gray-500 gap-4">
-                    <time datetime="{{ product.date_added|date:'c' }}">
-                        {{ product.date_added|date:"M j, Y g:i A" }}
-                    </time>
                     <span>{{ product.sold_count }} sold</span>
                 </div>
             </div>
@@ -63,6 +58,7 @@
 
             <!-- Content -->
             <div class="p-6 sm:p-8">
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Product Info</h2>
                 <div class="prose prose-lg max-w-none">
                     <div class="text-gray-700 leading-relaxed whitespace-pre-line text-base sm:text-lg">
                         {{ product.description }}
@@ -76,9 +72,9 @@
                     <div>
                         <div class="font-medium text-gray-900">
                             {% if product.user %}
-                                <p>Seller: {{ product.user.username }}</p>
+                                <p>{{ product.user.username }}</p>
                             {% else %}
-                                <p>Seller: Anonymous</p>
+                                <p>Anonymous</p>
                             {% endif %}
                         </div>
                         <p class="text-sm text-gray-500">Arsenal FC</p>
