@@ -1,6 +1,6 @@
 # gooner-store
 
-**PBP ASSIGNMENT 2**
+## PBP ASSIGNMENT 2
 
 **How I implemented the checklist for the assignment**
 1. Initiate local directory and GitHub repository named pbp-assignment-2
@@ -82,7 +82,7 @@ In Django, database migration is the process of keeping your database schema in 
 - List different commands for Windows ("python ...") and Unix-like ("python3 ..."). Some people may not realize these differences and might be confused on why running only "python ..." doesn't work on their system.
 
 
-**PBP ASSIGNMENT 3**
+## PBP ASSIGNMENT 3
 
 **Why do we need data delivery in implementing a platform?**
 
@@ -129,7 +129,7 @@ If we don’t use it, attackers can exploit this by making hidden forms or scrip
 <img width="1470" height="956" alt="Screenshot 2025-09-17 at 11 40 24" src="https://github.com/user-attachments/assets/8955b615-4acf-4b40-a216-e29669dd83ae" />
 
 
-**PBP ASSIGNMENT 4**
+## PBP ASSIGNMENT 4
 
 **What is Django's AuthenticationForm? Explain its advantages and disadvantages.**
 
@@ -181,7 +181,7 @@ Django’s protections:
 11. Write tests for login success/failure, protected-view redirects, and session expiry to catch regressions early.
 12. Deploy with DEBUG=False, ALLOWED_HOSTS configured, HTTPS enabled, and a secure SECRET_KEY to ensure production safety.
 
-**PBP ASSIGNMENT 5**
+## PBP ASSIGNMENT 5
 
 **Urutan Prioritas CSS Selector**
 CSS memilih aturan berdasarkan urutan prioritas (specificity):
@@ -219,3 +219,36 @@ Secara sederhana: content berada di tengah, kemudian dikelilingi padding, lalu b
 5. Menambahkan media query agar tampilan menyesuaikan di layar kecil maupun besar.
 6. Menguji tampilan pada berbagai ukuran layar untuk memastikan desain responsif.
 7. Merefaktor kode agar lebih konsisten dan mudah dipelihara.
+
+## PBP ASSIGNMENT 6
+
+**Perbedaan Synchronous dan Asynchronous Request**
+- Synchronous Request: Browser mengirim permintaan ke server dan menunggu respon sebelum melanjutkan proses lain. Hal ini membuat halaman berhenti sejenak (reload penuh).
+- Asynchronous Request: Browser mengirim permintaan ke server tanpa menghentikan interaksi pengguna. Hasil respon bisa diproses di latar belakang (tanpa reload halaman).
+
+**Cara Kerja AJAX di Django (Alur Request–Response)**
+1.	User Action: Pengguna melakukan aksi (misalnya klik tombol Submit).
+2.	AJAX Request: JavaScript mengirim permintaan (XMLHttpRequest atau fetch()) ke endpoint Django (biasanya views.py).
+3.	Django View: View memproses data (misalnya validasi form, query database) dan mengembalikan JSON Response.
+4.	Client-Side Update: JavaScript menerima respon JSON tersebut dan memperbarui bagian tertentu dari halaman (DOM) tanpa reload seluruh halaman.
+
+
+**Keuntungan Menggunakan AJAX Dibanding Render Biasa**
+- Tidak perlu reload halaman penuh, lebih cepat dan efisien.
+- Responsif dan interaktif, cocok untuk fitur dinamis (search bar, like button, form validation).
+- Mengurangi beban server dan bandwidth karena hanya sebagian data yang dikirim.
+- Memberi pengalaman seperti aplikasi desktop (real-time update).
+
+
+**Keamanan AJAX untuk Login dan Register** 
+- Gunakan CSRF Token di setiap AJAX request (Django menyediakan {% csrf_token %} atau csrftoken di header).
+- Gunakan HTTPS agar data sensitif (seperti password) terenkripsi.
+- Validasi dan autentikasi tetap dilakukan di server-side, bukan hanya di JavaScript.
+- Batasi endpoint AJAX agar hanya menerima metode dan data yang diharapkan.
+
+
+**Pengaruh AJAX terhadap User Experience (UX)** 
+- Memberikan pengalaman lebih cepat dan halus tanpa reload halaman.
+- Memungkinkan interaksi real-time seperti notifikasi, auto-save, atau search suggestion.
+- Meningkatkan kenyamanan pengguna, terutama pada aplikasi web interaktif.
+- Namun, perlu penanganan error yang baik agar pengguna tetap mendapat umpan balik bila terjadi kegagalan.
