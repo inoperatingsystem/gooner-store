@@ -119,6 +119,13 @@ def show_json_by_id(request, id):
     except:
         return JsonResponse({'detail': 'Not found'}, status=404)
 
+def _wants_json(request):
+    accept = request.headers.get('Accept', '')
+    return request.headers.get('X-Requested-With') == 'XMLHttpRequest' or 'application/json' in accept
+
+def _form_errors(form):
+    return {field: [str(e) for e in errors] for field, errors in form.errors.items()}
+
 def register(request):
     form = UserCreationForm()
 
@@ -126,9 +133,22 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            if _wants_json(request):
+                return JsonResponse({
+                    'success': True,
+                    'message': 'Account created',
+                    'redirect_url': reverse('main:login'),
+                }, status=201)
             messages.success(request, 'Your account has been successfully created!')
             return redirect('main:login')
-    context = {'form':form}
+        else:
+            if _wants_json(request):
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Validation error',
+                    'errors': _form_errors(form),
+                }, status=400)
+    context = {'form': form}
     return render(request, 'register.html', context)
 
 def login_user(request):
@@ -138,10 +158,24 @@ def login_user(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+            if _wants_json(request):
+                response = JsonResponse({
+                    'success': True,
+                    'message': 'Login successful',
+                    'redirect_url': reverse("main:show_main"),
+                }, status=200)
+                response.set_cookie('last_login', str(datetime.datetime.now()))
+                return response
             response = HttpResponseRedirect(reverse("main:show_main"))
             response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
-
+        else:
+            if _wants_json(request):
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Invalid credentials',
+                    'errors': _form_errors(form),
+                }, status=400)
     else:
         form = AuthenticationForm(request)
     context = {'form': form}
@@ -149,6 +183,14 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
+    if _wants_json(request):
+        response = JsonResponse({
+            'success': True,
+            'message': 'Logged out',
+            'redirect_url': reverse('main:login'),
+        }, status=200)
+        response.delete_cookie('last_login')
+        return response
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response

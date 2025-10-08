@@ -26,9 +26,22 @@
           My Product
         </a>
       </div>
-      {% if user.is_authenticated %}
-        <div class="text-sm text-gray-500">Last login: {{ last_login }}</div>
-      {% endif %}
+      <!-- Group last login + refresh -->
+      <div class="flex items-center gap-3">
+        <!-- Last login -->
+        {% if user.is_authenticated %}
+          <div class="text-sm text-gray-500">Last login: {{ last_login }}</div>
+        {% endif %}
+        <!-- Refresh button -->
+        <button id="refresh-products" type="button"
+          class="inline-flex items-center gap-2 bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-red-600 hover:text-white">
+          <span class="refresh-label">Refresh</span>
+          <svg class="refresh-spinner hidden animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Loading State -->
@@ -81,6 +94,7 @@ const emptyStateDisplay = document.getElementById('empty');
 const productGridContainer = document.getElementById('grid');
 const showAllProductButton = document.getElementById('filter-all');
 const showMyProductButton = document.getElementById('filter-my');
+const refreshButton = document.getElementById('refresh-products');
 
 // State Variables
 let activeFilter = 'all';
@@ -157,7 +171,7 @@ function buildProductCardElement(productItem) {
   const editDeleteButtons = CURRENT_USER_ID && Number(CURRENT_USER_ID) === Number(productItem.user_id)
     ? `<div class='flex space-x-2'>
          <a href='#' onclick='openEditModal("${productItem.id}"); return false;' class='text-gray-600 hover:text-gray-700 text-sm transition-colors'>Edit</a>
-         <a href='${deleteLink}' class='text-red-600 hover:text-red-700 text-sm transition-colors' onclick='return confirm("Are you sure you want to remove this product?")'>Delete</a>
+         <a href='#' onclick='openDeleteModal("${productItem.id}"); return false;' class='text-red-600 hover:text-red-700 text-sm transition-colors'>Delete</a>
       </div>`
     : '';
 
@@ -236,6 +250,26 @@ async function fetchProductFromServer() {
   }
 }
 
+// Refresh handler with button state
+let isRefreshing = false;
+async function handleRefreshClick() {
+  if (isRefreshing) return;
+  isRefreshing = true;
+  const spinner = refreshButton.querySelector('.refresh-spinner');
+  refreshButton.disabled = true;
+  refreshButton.classList.add('opacity-70', 'cursor-not-allowed');
+  spinner.classList.remove('hidden');
+  try {
+    await fetchProductFromServer(); // reuse existing loader
+    showToast('Product list updated', '', 'success');
+  } finally {
+    spinner.classList.add('hidden');
+    refreshButton.classList.remove('opacity-70', 'cursor-not-allowed');
+    refreshButton.disabled = false;
+    isRefreshing = false;
+  }
+}
+
 // Event handlers
 function handleShowAllProductsClick() {
   activeFilter = 'all';
@@ -251,6 +285,8 @@ function handleShowMyProductsClick() {
 function initializeProductPage() {
   showAllProductButton.addEventListener('click', handleShowAllProductsClick);
   showMyProductButton.addEventListener('click', handleShowMyProductsClick);
+
+  if (refreshButton) refreshButton.addEventListener('click', handleRefreshClick);
   
   fetchProductFromServer();
 }

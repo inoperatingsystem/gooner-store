@@ -51,7 +51,7 @@
           <a href="#" onclick="openEditModal('{{ product.id }}'); return false;" class="text-gray-600 hover:text-gray-700 text-sm transition-colors">
              Edit
           </a>
-          <a href="{% url 'main:delete_product' product.id %}" class="text-red-600 hover:text-red-700 text-sm transition-colors">
+          <a href="#" onclick="openDeleteModal('{{ product.id }}'); return false;" class="text-red-600 hover:text-red-700 text-sm transition-colors">
             Delete
           </a>
         </div>
